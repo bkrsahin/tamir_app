@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta ch                          <div class="admin-card" style="border-left: 5px solid #95a5a6;">
+                    <h3>📋 Mevcut Durum</h3>    <div class="admin-card" style="border-left: 5px solid #34495e;">
+                    <h3>👤 Müşteri Bilgileri</h3>set="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Müşteri Paneli - Araç Takip Sistemi</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="admin-header" style="background: #3498db;">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>🚗 Müşteri Paneli</h1>
+                <div>
+                    <span id="customerName">Hoş geldiniz!</span>
+                    <a href="../index.html" style="color: white; margin-left: 20px; text-decoration: none;">
+                        🏠 Ana Sayfa
+                    </a>
+                    <a href="../login.html" style="color: white; margin-left: 10px; text-decoration: none;">
+                        🚪 Çıkış
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Araç Bilgileri -->
+            <section class="welcome-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Araç Takip Bilgileri</h2>
+                    <div style="text-align: right;">
+                        <p><strong>Takip No:</strong> <span id="tracking-number" style="color: #4CAF50; font-weight: bold;">TK2025001</span></p>
+                        <p><strong>Kayıt Tarihi:</strong> <span id="register-date">15.09.2025</span></p>
+                    </div>
+                </div>
+                <p>Aracınızın tamirhanedeki güncel durumunu aşağıdan takip edebilirsiniz.</p>
+            </section>
+
+            <!-- Araç ve Müşteri Bilgileri -->
+            <div class="admin-cards">
+                <div class="admin-card" style="border-left: 5px solid #3498db;">
+                    <h3>🚗 Araç Bilgileri</h3>
+                    <div style="text-align: left;">
+                        <p><strong>Plaka:</strong> <span id="vehicle-plate">34 ABC 123</span></p>
+                        <p><strong>Marka/Model:</strong> <span id="vehicle-model">Honda Civic 2018</span></p>
+                        <p><strong>Sorun:</strong> <span id="vehicle-problem">Fren sistemi arızası</span></p>
+                        <p><strong>Geliş Tarihi:</strong> <span id="arrival-date">15.09.2025</span></p>
+                    </div>
+                </div>
+
+                <div class="admin-card" style="border-left: 5px solid #2196F3;">
+                    <h3>� Müşteri Bilgileri</h3>
+                    <div style="text-align: left;">
+                        <p><strong>Ad Soyad:</strong> <span id="customer-fullname">Ahmet Yılmaz</span></p>
+                        <p><strong>Telefon:</strong> <span id="customer-phone">0555 123 45 67</span></p>
+                        <p><strong>E-posta:</strong> <span id="customer-email">ahmet@email.com</span></p>
+                    </div>
+                </div>
+
+                <div class="admin-card" style="border-left: 5px solid #ff9800;">
+                    <h3>� Mevcut Durum</h3>
+                    <div style="text-align: left;">
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <span id="status-icon" style="font-size: 2rem;">🔧</span>
+                            <div>
+                                <p style="margin: 0;"><strong>Durum:</strong> <span id="current-status" style="color: #ff9800; font-weight: bold;">Onarımda</span></p>
+                                <p style="margin: 0; font-size: 0.9rem; color: #666;">Son Güncelleme: <span id="last-update">21.09.2025 - 14:30</span></p>
+                            </div>
+                        </div>
+                        <p><strong>İşlem:</strong> <span id="current-operation">Fren balata değişimi</span></p>
+                        <p><strong>Tahmini Teslim:</strong> <span id="estimated-delivery">22.09.2025</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Süreç Takibi -->
+            <section style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); margin-top: 30px; border: 1px solid #ecf0f1;">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;">📈 İşlem Süreci</h2>
+                
+                <div class="process-timeline">
+                    <div class="process-step completed">
+                        <div class="step-icon">✅</div>
+                        <div class="step-content">
+                            <h4>Kayıt ve Kabul</h4>
+                            <p>15.09.2025 - 09:30</p>
+                            <small>Araç tamirhanede kabul edildi ve sisteme kaydedildi. Takip numarası: TK2025001</small>
+                        </div>
+                    </div>
+
+                    <div class="process-step completed">
+                        <div class="step-icon">✅</div>
+                        <div class="step-content">
+                            <h4>İlk Muayene (Beklemede)</h4>
+                            <p>15.09.2025 - 10:15</p>
+                            <small>Aracın genel durumu incelendi, fren sistemi sorunu tespit edildi. Parça siparişi verildi.</small>
+                        </div>
+                    </div>
+
+                    <div class="process-step active">
+                        <div class="step-icon">🔧</div>
+                        <div class="step-content">
+                            <h4>Onarım/Bakım</h4>
+                            <p>20.09.2025 - Devam ediyor</p>
+                            <small>Fren balata değişimi ve fren hidroliği yenileme işlemi başladı. Parçalar geldi.</small>
+                        </div>
+                    </div>
+
+                    <div class="process-step pending">
+                        <div class="step-icon">⏳</div>
+                        <div class="step-content">
+                            <h4>Kalite Kontrol</h4>
+                            <p>Bekleniyor</p>
+                            <small>Onarım tamamlandıktan sonra test sürüşü ve kalite kontrol yapılacak.</small>
+                        </div>
+                    </div>
+
+                    <div class="process-step pending">
+                        <div class="step-icon">✨</div>
+                        <div class="step-content">
+                            <h4>Teslime Hazır</h4>
+                            <p>Bekleniyor</p>
+                            <small>Araç teslim için hazır olduğunda SMS/telefon ile bildirilecek.</small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Maliyet ve Ödeme Bilgileri -->
+            <section style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); margin-top: 30px; border: 1px solid #ecf0f1;">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;">💰 Maliyet ve Ödeme</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">💵 Maliyet Detayı</h4>
+                        <p><strong>İşçilik:</strong> <span id="labor-cost">800 ₺</span></p>
+                        <p><strong>Yedek Parça:</strong> <span id="parts-cost">450 ₺</span></p>
+                        <p style="border-top: 2px solid #ddd; padding-top: 10px; margin-top: 10px;"><strong>Toplam:</strong> <span id="total-cost" style="color: #2c3e50; font-size: 1.2rem;">1,250 ₺</span></p>
+                    </div>
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 10px;">
+                        <h4 style="color: #333; margin-bottom: 15px;">🏦 Ödeme Bilgisi</h4>
+                        <p><strong>Ödeme Durumu:</strong> <span id="payment-status" style="color: #ff9800; font-weight: bold;">Bekliyor</span></p>
+                        <p><strong>Ödeme Şekli:</strong> <span id="payment-method">Teslimde Nakit/Kart</span></p>
+                        <p><strong>Fatura:</strong> <span id="invoice-status">Teslim sonrası verilecek</span></p>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #3498db;">
+                    <p style="margin: 0; color: #2c3e50;"><strong>Not:</strong> Ödeme araç teslim alınırken yapılacaktır. Nakit, kredi kartı veya havale kabul edilmektedir.</p>
+                </div>
+            </section>
+
+            <!-- İletişim Bölümü -->
+            <section style="background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); margin-top: 30px; border: 1px solid #ecf0f1;">
+                <h2 style="color: #2c3e50; margin-bottom: 20px;">📞 İletişim</h2>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div>
+                        <h4>Tamirhane İletişim</h4>
+                        <p>📞 <strong>Telefon:</strong> (0212) 555 0123</p>
+                        <p>📧 <strong>E-posta:</strong> info@tamirhane.com</p>
+                        <p>📍 <strong>Adres:</strong> Örnek Cad. No:123, İstanbul</p>
+                    </div>
+                    <div>
+                        <h4>Mesai Saatleri</h4>
+                        <p>🕘 <strong>Hafta İçi:</strong> 08:00 - 18:00</p>
+                        <p>🕒 <strong>Cumartesi:</strong> 09:00 - 15:00</p>
+                        <p>🚫 <strong>Pazar:</strong> Kapalı</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <style>
+        .process-timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ecf0f1;
+        }
+
+        .process-step {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 40px;
+        }
+
+        .step-icon {
+            position: absolute;
+            left: -32px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            background: white;
+            border: 2px solid #ecf0f1;
+        }
+
+        .process-step.completed .step-icon {
+            background: #27ae60;
+            border-color: #27ae60;
+            color: white;
+        }
+
+        .process-step.active .step-icon {
+            background: #3498db;
+            border-color: #3498db;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        .process-step.pending .step-icon {
+            background: #f8f9fa;
+            border-color: #ecf0f1;
+            color: #bdc3c7;
+        }
+
+        .step-content h4 {
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .step-content p {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #3498db;
+        }
+
+        .step-content small {
+            color: #7f8c8d;
+            line-height: 1.4;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(52, 152, 219, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(52, 152, 219, 0);
+            }
+        }
+    </style>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Sayfa yüklendiğinde güvenlik kontrolü ve müşteri bilgilerini al
+        document.addEventListener('DOMContentLoaded', function() {
+            // Giriş kontrolü
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const userType = sessionStorage.getItem('userType');
+            
+            if (!isLoggedIn || userType !== 'customer') {
+                showNotification('Bu sayfaya erişim için müşteri girişi yapmalısınız!', 'error');
+                setTimeout(() => {
+                    window.location.href = '../login.html';
+                }, 2000);
+                return;
+            }
+            
+            // Müşteri verilerini yükle
+            const customerData = JSON.parse(sessionStorage.getItem('customerData'));
+            if (customerData) {
+                loadCustomerData(customerData);
+            } else {
+                showNotification('Müşteri verileri bulunamadı!', 'error');
+                setTimeout(() => {
+                    window.location.href = '../login.html';
+                }, 2000);
+            }
+        });
+
+        function loadCustomerData(data) {
+            try {
+                // Müşteri ve araç bilgileri
+                document.getElementById('customerName').textContent = `Hoş geldiniz, ${data.customerName}!`;
+                document.getElementById('tracking-number').textContent = data.trackingNumber;
+                document.getElementById('register-date').textContent = data.vehicleData.registerDate;
+                document.getElementById('customer-fullname').textContent = data.customerName;
+                document.getElementById('customer-phone').textContent = data.phone;
+                document.getElementById('customer-email').textContent = data.email || 'Kayıtlı değil';
+                
+                // Araç bilgileri
+                document.getElementById('vehicle-plate').textContent = data.vehicleData.plate;
+                document.getElementById('vehicle-model').textContent = data.vehicleData.model;
+                document.getElementById('vehicle-problem').textContent = data.vehicleData.problem;
+                document.getElementById('arrival-date').textContent = data.vehicleData.arrivalDate;
+                
+                // Durum bilgileri
+                document.getElementById('status-icon').textContent = data.vehicleData.statusIcon;
+                document.getElementById('current-status').textContent = data.vehicleData.status;
+                document.getElementById('last-update').textContent = data.vehicleData.lastUpdate;
+                document.getElementById('current-operation').textContent = data.vehicleData.currentOperation;
+                document.getElementById('estimated-delivery').textContent = data.vehicleData.estimatedDelivery;
+                
+                // Maliyet bilgileri
+                document.getElementById('labor-cost').textContent = data.costData.laborCost;
+                document.getElementById('parts-cost').textContent = data.costData.partsCost;
+                document.getElementById('total-cost').textContent = data.costData.totalCost;
+                document.getElementById('payment-status').textContent = data.costData.paymentStatus;
+                document.getElementById('payment-method').textContent = data.costData.paymentMethod;
+                
+                // Durum rengini güncelle
+                updateStatusColor(data.vehicleData.status);
+                
+                // Başarılı yükleme bildirimi
+                showNotification(`${data.customerName}, araç bilgileriniz yüklendi!`, 'success');
+                
+            } catch (error) {
+                console.error('Veri yükleme hatası:', error);
+                showNotification('Veri yükleme sırasında hata oluştu!', 'error');
+            }
+        }
+
+        function updateStatusColor(status) {
+            const statusElement = document.getElementById('current-status');
+            const paymentStatusElement = document.getElementById('payment-status');
+            
+            switch(status) {
+                case 'Beklemede':
+                    statusElement.style.color = '#95a5a6';
+                    break;
+                case 'Onarımda':
+                    statusElement.style.color = '#3498db';
+                    break;
+                case 'Tamamlandı':
+                    statusElement.style.color = '#27ae60';
+                    if (paymentStatusElement) {
+                        paymentStatusElement.style.color = '#27ae60';
+                    }
+                    break;
+                default:
+                    statusElement.style.color = '#7f8c8d';
+            }
+        }
+
+        // Otomatik yenileme (gerçek uygulamada WebSocket veya polling kullanılır)
+        setInterval(function() {
+            const statusElement = document.getElementById('last-update');
+            if (statusElement) {
+                const now = new Date();
+                statusElement.textContent = `${now.toLocaleDateString('tr-TR')} - ${now.toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'})}`;
+            }
+        }, 60000); // Her dakika güncelle
+    </script>
+</body>
+</html>

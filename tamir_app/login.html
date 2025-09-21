@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş - Araç Takip Sistemi</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="login-container">
+        <form class="login-form" id="loginForm">
+            <h2 style="text-align: center; margin-bottom: 30px; color: #2c3e50;">
+                🚗 Giriş Yap
+            </h2>
+            
+            <div class="form-group">
+                <label for="userType">Giriş Tipi:</label>
+                <select id="userType" name="userType" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 8px;" onchange="toggleLoginFields()">
+                    <option value="customer">Müşteri Girişi</option>
+                    <option value="admin">Yönetici Girişi</option>
+                </select>
+            </div>
+
+            <!-- Müşteri Giriş Alanları -->
+            <div id="customerLogin">
+                <div class="form-group">
+                    <label for="trackingNumber">Takip Numarası:</label>
+                    <input type="text" id="trackingNumber" name="trackingNumber" placeholder="Örn: TK2025001" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 8px;">
+                </div>
+                <div class="form-group">
+                    <label for="phoneNumber">Telefon Numarası:</label>
+                    <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Örn: 05551234567" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 8px;">
+                </div>
+                <p style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                    Takip numaranızı bilmiyorsanız, telefon numaranızla da giriş yapabilirsiniz.
+                </p>
+            </div>
+
+            <!-- Admin Giriş Alanları -->
+            <div id="adminLogin" style="display: none;">
+                <div class="form-group">
+                    <label for="adminUsername">Kullanıcı Adı:</label>
+                    <input type="text" id="adminUsername" name="adminUsername" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 8px;">
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Şifre:</label>
+                    <input type="password" id="adminPassword" name="adminPassword" style="width: 100%; padding: 12px; border: 2px solid #e1e5e9; border-radius: 8px;">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                <span class="icon">🔐</span>
+                <span id="loginButtonText">Giriş Yap</span>
+            </button>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="index.html" style="color: #3498db; text-decoration: none;">
+                    ← Ana Sayfaya Dön
+                </a>
+            </div>
+
+            <div id="demoAccounts" style="margin-top: 30px; padding: 15px; background: #f8f9fa; border-radius: 8px; font-size: 0.9rem; display: none;">
+                <strong>Demo Admin Hesabı:</strong><br>
+                Kullanıcı: admin<br>
+                Şifre: admin123
+            </div>
+
+            <div id="customerDemo" style="margin-top: 30px; padding: 15px; background: #f8f9fa; border-radius: 8px; font-size: 0.9rem; border-left: 4px solid #3498db;">
+                <strong>Demo Müşteri Girişi:</strong><br>
+                Takip No: TK2025001<br>
+                Telefon: 05551234567
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function toggleLoginFields() {
+            const userType = document.getElementById('userType').value;
+            const customerLogin = document.getElementById('customerLogin');
+            const adminLogin = document.getElementById('adminLogin');
+            const demoAccounts = document.getElementById('demoAccounts');
+            const customerDemo = document.getElementById('customerDemo');
+            const loginButtonText = document.getElementById('loginButtonText');
+
+            if (userType === 'admin') {
+                customerLogin.style.display = 'none';
+                adminLogin.style.display = 'block';
+                demoAccounts.style.display = 'block';
+                customerDemo.style.display = 'none';
+                loginButtonText.textContent = 'Yönetici Girişi';
+            } else {
+                customerLogin.style.display = 'block';
+                adminLogin.style.display = 'none';
+                demoAccounts.style.display = 'none';
+                customerDemo.style.display = 'block';
+                loginButtonText.textContent = 'Araç Durumu Sorgula';
+            }
+        }
+
+        // Sayfa yüklendiğinde müşteri girişini göster
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleLoginFields();
+        });
+    </script>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

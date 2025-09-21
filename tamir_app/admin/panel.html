@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetim Paneli - Araç Takip Sistemi</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header class="admin-header">
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1>⚙️ Yönetim Paneli</h1>
+                <div>
+                    <span id="adminUser">Admin Kullanıcı</span>
+                    <a href="../index.html" style="color: white; margin-left: 20px; text-decoration: none;">
+                        🏠 Ana Sayfa
+                    </a>
+                    <a href="../login.html" style="color: white; margin-left: 10px; text-decoration: none;">
+                        🚪 Çıkış
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <nav class="admin-nav">
+                <ul>
+                    <li><a href="#arac-kabul" onclick="showSection('arac-kabul')">
+                        <span>🚗</span> Araç Kabul
+                    </a></li>
+                    <li><a href="#musteriler" onclick="showSection('musteriler')">
+                        <span>👥</span> Müşteri Yönetimi
+                    </a></li>
+                    <li><a href="#bakim-kayitlari" onclick="showSection('bakim-kayitlari')">
+                        <span>🔧</span> Bakım Kayıtları
+                    </a></li>
+                    <li><a href="#raporlar" onclick="showSection('raporlar')">
+                        <span>📊</span> Raporlar
+                    </a></li>
+                    <li><a href="#kullanici-yonetimi" onclick="showSection('kullanici-yonetimi')">
+                        <span>👤</span> Kullanıcı Yönetimi
+                    </a></li>
+                    <li><a href="#ayarlar" onclick="showSection('ayarlar')">
+                        <span>⚙️</span> Ayarlar
+                    </a></li>
+                </ul>
+            </nav>
+
+            <!-- Araç Kabul Bölümü -->
+            <section id="arac-kabul" class="admin-section">
+                <h2>🚗 Araç Kayıt ve Kabul İşlemleri</h2>
+                <div class="admin-cards">
+                    <div class="admin-card">
+                        <h3>➕ Yeni Müşteri & Araç Kaydı</h3>
+                        <p>Yeni gelen müşteriyi ve aracını sisteme kaydedin</p>
+                        <button class="btn btn-primary" onclick="openNewRecordForm()">
+                            🆕 Yeni Kayıt Oluştur
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>📋 Günlük Kayıtlar</h3>
+                        <p id="daily-records">Bugün 3 yeni araç kaydedildi</p>
+                        <button class="btn btn-admin" onclick="showDailyRecords()">
+                            📅 Bugünkü Kayıtları Gör
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>🔄 Hızlı Durum Değiştir</h3>
+                        <p>Araç durumlarını hızlıca güncelleyin</p>
+                        <button class="btn btn-primary" onclick="openQuickStatusUpdate()">
+                            ⚡ Hızlı Güncelleme
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Yeni Kayıt Formu (Gizli) -->
+                <div id="newRecordForm" style="display: none; margin-top: 30px; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); border: 1px solid #ecf0f1;">
+                    <h3 style="color: #2c3e50; margin-bottom: 20px;">🆕 Yeni Araç Kaydı</h3>
+                    <form id="vehicleForm">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                            <!-- Müşteri Bilgileri -->
+                            <div>
+                                <h4 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">👤 Müşteri Bilgileri</h4>
+                                <div class="form-group">
+                                    <label>Ad Soyad:</label>
+                                    <input type="text" id="customerName" required style="width: 100%; padding: 10px; border: 1px solid #ecf0f1; border-radius: 5px;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Telefon:</label>
+                                    <input type="tel" id="customerPhone" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                                </div>
+                                <div class="form-group">
+                                    <label>E-posta (opsiyonel):</label>
+                                    <input type="email" id="customerEmail" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                                </div>
+                            </div>
+                            
+                            <!-- Araç Bilgileri -->
+                            <div>
+                                <h4 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;">🚗 Araç Bilgileri</h4>
+                                <div class="form-group">
+                                    <label>Plaka:</label>
+                                    <input type="text" id="vehiclePlate" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; text-transform: uppercase;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Marka/Model:</label>
+                                    <input type="text" id="vehicleModel" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Sorun/İşlem:</label>
+                                    <textarea id="vehicleProblem" required style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; height: 80px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 20px; text-align: center;">
+                            <button type="button" class="btn" style="background: #6c757d; color: white; margin-right: 10px;" onclick="cancelNewRecord()">
+                                ❌ İptal
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                ✅ Kaydet ve Takip No Oluştur
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Müşteri Yönetimi Bölümü -->
+            <section id="musteriler" class="admin-section" style="display: none;">
+                <h2>👥 Müşteri ve Araç Yönetimi</h2>
+                <div class="admin-cards">
+                    <div class="admin-card">
+                        <h3>🔍 Müşteri/Araç Arama</h3>
+                        <input type="text" id="searchInput" placeholder="İsim, telefon, plaka veya takip no..." style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 5px;">
+                        <button class="btn btn-primary" style="width: 100%;" onclick="searchCustomers()">
+                            🔍 Ara
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>📊 Tüm Kayıtlar</h3>
+                        <p>Sistemdeki tüm müşteri ve araç kayıtları</p>
+                        <button class="btn btn-admin" onclick="showAllRecords()">
+                            📋 Tüm Kayıtları Listele
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>✏️ Bilgi Güncelleme</h3>
+                        <p>Müşteri bilgilerini güncelleyin</p>
+                        <button class="btn btn-primary" onclick="showUpdateForm()">
+                            ✏️ Bilgi Güncelle
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Arama Sonuçları -->
+                <div id="searchResults" style="display: none; margin-top: 30px;">
+                    <h3 style="color: #667eea;">Arama Sonuçları</h3>
+                    <div id="resultsContainer"></div>
+                </div>
+            </section>
+
+            <!-- Araç Durum Yönetimi Bölümü -->
+            <section id="bakim-kayitlari" class="admin-section" style="display: none;">
+                <h2>🔧 Araç Durum Yönetimi</h2>
+                <div class="admin-cards">
+                    <div class="admin-card">
+                        <h3>⏳ Beklemede Olanlar</h3>
+                        <p id="waiting-count">2 araç beklemede</p>
+                        <button class="btn btn-primary" onclick="showWaitingVehicles()">
+                            📋 Bekleyenleri Listele
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>🔧 Onarımda Olanlar</h3>
+                        <p id="repair-count">3 araç onarımda</p>
+                        <button class="btn btn-admin" onclick="showRepairVehicles()">
+                            🔧 Onarımdakileri Listele
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>✅ Tamamlananlar</h3>
+                        <p id="completed-count">Bu hafta 8 araç tamamlandı</p>
+                        <button class="btn btn-primary" onclick="showCompletedVehicles()">
+                            ✅ Tamamlananları Listele
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Durum Değiştirme Paneli -->
+                <div id="statusChangePanel" style="display: none; margin-top: 30px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);">
+                    <h3 style="color: #667eea; margin-bottom: 20px;">🔄 Araç Durumu Değiştir</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <button class="btn" style="background: #ff9800; color: white;" onclick="changeStatus('Beklemede')">
+                            ⏳ Beklemede Yap
+                        </button>
+                        <button class="btn" style="background: #2196F3; color: white;" onclick="changeStatus('Onarımda')">
+                            🔧 Onarımda Yap
+                        </button>
+                        <button class="btn" style="background: #4CAF50; color: white;" onclick="changeStatus('Tamamlandı')">
+                            ✅ Tamamlandı Yap
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Raporlar Bölümü -->
+            <section id="raporlar" class="admin-section" style="display: none;">
+                <h2>📊 Raporlar ve İstatistikler</h2>
+                <div class="admin-cards">
+                    <div class="admin-card">
+                        <h3>Günlük Rapor</h3>
+                        <p>Bugünkü işlem özeti</p>
+                        <button class="btn btn-primary">
+                            Raporu Oluştur
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Aylık İstatistik</h3>
+                        <p>Bu ay yapılan işlemler</p>
+                        <button class="btn btn-admin">
+                            İstatistikleri Göster
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Gelir Raporu</h3>
+                        <p>Finansal durum raporu</p>
+                        <button class="btn btn-primary">
+                            Gelir Raporunu Göster
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Kullanıcı Yönetimi Bölümü -->
+            <section id="kullanici-yonetimi" class="admin-section" style="display: none;">
+                <h2>👤 Kullanıcı Yönetimi</h2>
+                <div class="admin-cards">
+                    <div class="admin-card">
+                        <h3>Aktif Kullanıcılar</h3>
+                        <p>Sisteme kayıtlı kullanıcılar</p>
+                        <button class="btn btn-primary">
+                            Kullanıcıları Listele
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Yeni Kullanıcı</h3>
+                        <p>Sisteme yeni kullanıcı ekleyin</p>
+                        <button class="btn btn-admin">
+                            Kullanıcı Ekle
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Şifre Sıfırlama</h3>
+                        <p>Kullanıcı şifrelerini sıfırlayın</p>
+                        <button class="btn btn-primary">
+                            Şifre İşlemleri
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ayarlar Bölümü -->
+            <section id="ayarlar" class="admin-section" style="display: none;">
+                <h2>⚙️ Sistem Ayarları</h2>
+                <div class="admin-cards">
+                    <div class="admin-card">
+                        <h3>Genel Ayarlar</h3>
+                        <p>Sistem genel yapılandırması</p>
+                        <button class="btn btn-primary">
+                            Ayarları Düzenle
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Tema Ayarları</h3>
+                        <p>Görünüm ve tema ayarları</p>
+                        <button class="btn btn-admin">
+                            Tema Değiştir
+                        </button>
+                    </div>
+                    <div class="admin-card">
+                        <h3>Yedekleme</h3>
+                        <p>Veri yedekleme işlemleri</p>
+                        <button class="btn btn-primary">
+                            Yedek Al
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Sayfa yüklendiğinde güvenlik kontrolü
+        document.addEventListener('DOMContentLoaded', function() {
+            // Giriş kontrolü
+            const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+            const userType = sessionStorage.getItem('userType');
+            const username = sessionStorage.getItem('username');
+            
+            if (!isLoggedIn || userType !== 'admin') {
+                showNotification('Bu sayfaya erişim için admin girişi yapmalısınız!', 'error');
+                setTimeout(() => {
+                    window.location.href = '../login.html';
+                }, 2000);
+                return;
+            }
+            
+            document.getElementById('adminUser').textContent = `Hoş geldiniz, ${username}`;
+            showSection('arac-kabul');
+            
+            // Form event listener'ı ekle
+            const vehicleForm = document.getElementById('vehicleForm');
+            if (vehicleForm) {
+                vehicleForm.addEventListener('submit', handleNewVehicleSubmit);
+            }
+            
+            // Günlük kayıt sayısını güncelle
+            updateDailyRecordCount();
+            
+            // Durum sayılarını güncelle
+            updateStatusCounts();
+        });
+
+        function showSection(sectionId) {
+            // Tüm bölümleri gizle
+            const sections = document.querySelectorAll('.admin-section');
+            sections.forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Seçilen bölümü göster
+            document.getElementById(sectionId).style.display = 'block';
+            
+            // Aktif menü öğesini işaretle
+            const navLinks = document.querySelectorAll('.admin-nav a');
+            navLinks.forEach(link => {
+                link.style.background = '#f8f9fa';
+                link.style.color = '#333';
+            });
+            
+            const activeLink = document.querySelector(`[onclick="showSection('${sectionId}')"]`);
+            if (activeLink) {
+                activeLink.style.background = '#667eea';
+                activeLink.style.color = 'white';
+            }
+        }
+
+        // Yeni kayıt formu fonksiyonları
+        function openNewRecordForm() {
+            document.getElementById('newRecordForm').style.display = 'block';
+            document.getElementById('customerName').focus();
+        }
+
+        function cancelNewRecord() {
+            document.getElementById('newRecordForm').style.display = 'none';
+            document.getElementById('vehicleForm').reset();
+        }
+
+        function handleNewVehicleSubmit(e) {
+            e.preventDefault();
+            
+            const formData = {
+                customerName: document.getElementById('customerName').value,
+                customerPhone: document.getElementById('customerPhone').value,
+                customerEmail: document.getElementById('customerEmail').value || '',
+                vehiclePlate: document.getElementById('vehiclePlate').value.toUpperCase(),
+                vehicleModel: document.getElementById('vehicleModel').value,
+                vehicleProblem: document.getElementById('vehicleProblem').value,
+                trackingNumber: generateTrackingNumber(),
+                registerDate: new Date().toLocaleDateString('tr-TR'),
+                status: 'Beklemede'
+            };
+            
+            // LocalStorage'a kaydet (gerçek uygulamada backend'e gönderilir)
+            saveVehicleRecord(formData);
+            
+            showNotification(`✅ Kayıt başarılı! Takip No: ${formData.trackingNumber}`, 'success');
+            cancelNewRecord();
+            
+            // Sayıları güncelle
+            updateDailyRecordCount();
+            updateStatusCounts();
+            
+            // Takip numarasını göster
+            setTimeout(() => {
+                alert(`Müşteriye verilecek takip numarası:\n\n${formData.trackingNumber}\n\nMüşteri bu numara ile araç durumunu sorgulayabilir.`);
+            }, 1000);
+        }
+
+        function generateTrackingNumber() {
+            const year = new Date().getFullYear();
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `TK${year}${random}`;
+        }
+
+        function saveVehicleRecord(data) {
+            // LocalStorage'dan mevcut kayıtları al
+            let records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            
+            // Yeni kaydı ekle
+            records.push({
+                ...data,
+                id: Date.now(),
+                createdAt: new Date().toISOString()
+            });
+            
+            // Kaydet
+            localStorage.setItem('vehicleRecords', JSON.stringify(records));
+        }
+
+        // Arama fonksiyonları
+        function searchCustomers() {
+            const searchTerm = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (!searchTerm) {
+                showNotification('Arama terimi girin!', 'error');
+                return;
+            }
+            
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            const results = records.filter(record => 
+                record.customerName.toLowerCase().includes(searchTerm) ||
+                record.customerPhone.includes(searchTerm) ||
+                record.vehiclePlate.toLowerCase().includes(searchTerm) ||
+                record.trackingNumber.toLowerCase().includes(searchTerm)
+            );
+            
+            displaySearchResults(results);
+        }
+
+        function displaySearchResults(results) {
+            const container = document.getElementById('resultsContainer');
+            const resultsDiv = document.getElementById('searchResults');
+            
+            if (results.length === 0) {
+                container.innerHTML = '<p style="color: #7f8c8d; text-align: center; padding: 20px;">Arama kriterinize uygun kayıt bulunamadı.</p>';
+            } else {
+                container.innerHTML = results.map(record => {
+                    const statusColor = getStatusColor(record.status);
+                    const createdDate = new Date(record.createdAt).toLocaleDateString('tr-TR');
+                    const createdTime = new Date(record.createdAt).toLocaleTimeString('tr-TR', {hour: '2-digit', minute: '2-digit'});
+                    
+                    return `
+                        <div style="background: white; padding: 20px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ecf0f1; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
+                                <div>
+                                    <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 1.2rem;">👤 ${record.customerName}</h4>
+                                    <p style="margin: 5px 0; color: #7f8c8d;"><strong>📞 Telefon:</strong> ${record.customerPhone}</p>
+                                    <p style="margin: 5px 0; color: #7f8c8d;"><strong>📧 E-posta:</strong> ${record.customerEmail || 'Belirtilmemiş'}</p>
+                                    <p style="margin: 5px 0; color: #7f8c8d;"><strong>📋 Takip No:</strong> <span style="color: #3498db; font-weight: bold;">${record.trackingNumber}</span></p>
+                                </div>
+                                <div>
+                                    <h4 style="color: #2c3e50; margin-bottom: 10px; font-size: 1.2rem;">🚗 ${record.vehiclePlate}</h4>
+                                    <p style="margin: 5px 0; color: #7f8c8d;"><strong>🚙 Model:</strong> ${record.vehicleModel}</p>
+                                    <p style="margin: 5px 0; color: #7f8c8d;"><strong>📅 Kayıt:</strong> ${record.registerDate} ${createdTime}</p>
+                                    <p style="margin: 5px 0;"><strong>📊 Durum:</strong> <span style="color: ${statusColor}; font-weight: bold; padding: 4px 8px; border-radius: 4px; background: ${statusColor}20;">${record.status}</span></p>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 15px; padding: 10px; background: #f8f9fa; border-radius: 6px;">
+                                <p style="margin: 0; color: #2c3e50;"><strong>🔧 Sorun/İşlem:</strong> ${record.vehicleProblem}</p>
+                            </div>
+                            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                                <button class="btn btn-primary" onclick="editRecord(${record.id})" style="padding: 8px 16px; font-size: 0.9rem;">
+                                    ✏️ Düzenle
+                                </button>
+                                <button class="btn btn-admin" onclick="changeRecordStatus(${record.id})" style="padding: 8px 16px; font-size: 0.9rem;">
+                                    🔄 Durum Değiştir
+                                </button>
+                                <button class="btn" onclick="viewRecordDetails(${record.id})" style="background: #95a5a6; color: white; padding: 8px 16px; font-size: 0.9rem;">
+                                    👁️ Detay Görüntüle
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            resultsDiv.style.display = 'block';
+            
+            // Sonuçlar bölümüne yumuşak scroll
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function getStatusColor(status) {
+            switch(status) {
+                case 'Beklemede': return '#95a5a6';
+                case 'Onarımda': return '#3498db';
+                case 'Tamamlandı': return '#27ae60';
+                default: return '#7f8c8d';
+            }
+        }
+
+        function viewRecordDetails(recordId) {
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            const record = records.find(r => r.id === recordId);
+            
+            if (record) {
+                const details = `
+                    🚗 ARAÇ BİLGİLERİ
+                    ═══════════════════
+                    Müşteri: ${record.customerName}
+                    Telefon: ${record.customerPhone}
+                    E-posta: ${record.customerEmail || 'Belirtilmemiş'}
+                    
+                    Plaka: ${record.vehiclePlate}
+                    Model: ${record.vehicleModel}
+                    Sorun: ${record.vehicleProblem}
+                    
+                    Takip No: ${record.trackingNumber}
+                    Kayıt Tarihi: ${record.registerDate}
+                    Durum: ${record.status}
+                    
+                    Son Güncelleme: ${record.lastUpdate || 'Henüz güncelleme yapılmamış'}
+                `;
+                alert(details);
+            }
+        }
+
+        function showAllRecords() {
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            
+            if (records.length === 0) {
+                // Eğer hiç kayıt yoksa demo veriler göster
+                const demoRecords = [
+                    {
+                        id: Date.now() + 1,
+                        customerName: "Kamil Kamil",
+                        customerPhone: "05555555555",
+                        customerEmail: "kamil@email.com",
+                        vehiclePlate: "25 FAF 25",
+                        vehicleModel: "Chery Tiggo 8",
+                        vehicleProblem: "Hasarlı",
+                        trackingNumber: "TK2025636",
+                        registerDate: "20.09.2025",
+                        status: "Beklemede",
+                        createdAt: new Date(Date.now() - 86400000).toISOString() // 1 gün önce
+                    },
+                    {
+                        id: Date.now() + 2,
+                        customerName: "Mehmet Öztürk",
+                        customerPhone: "05559876543",
+                        customerEmail: "mehmet@email.com",
+                        vehiclePlate: "06 DEF 456",
+                        vehicleModel: "Volkswagen Passat 2019",
+                        vehicleProblem: "Klima bakımı ve filter değişimi",
+                        trackingNumber: "TK2025003",
+                        registerDate: new Date().toLocaleDateString('tr-TR'),
+                        status: "Onarımda",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: Date.now() + 3,
+                        customerName: "Ayşe Kaya",
+                        customerPhone: "05551112233",
+                        customerEmail: "ayse@email.com",
+                        vehiclePlate: "34 GHI 789",
+                        vehicleModel: "Renault Megane 2020",
+                        vehicleProblem: "Motor kontrolü ve genel bakım",
+                        trackingNumber: "TK2025004",
+                        registerDate: new Date().toLocaleDateString('tr-TR'),
+                        status: "Onarımda",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: Date.now() + 4,
+                        customerName: "Can Demir",
+                        customerPhone: "05554445566",
+                        customerEmail: "can@email.com",
+                        vehiclePlate: "35 JKL 012",
+                        vehicleModel: "Ford Focus 2018",
+                        vehicleProblem: "Lastik değişimi ve balans ayarı",
+                        trackingNumber: "TK2025005",
+                        registerDate: new Date().toLocaleDateString('tr-TR'),
+                        status: "Tamamlandı",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: Date.now() + 5,
+                        customerName: "Fatma Demir",
+                        customerPhone: "05559876543",
+                        customerEmail: "fatma@email.com",
+                        vehiclePlate: "35 XYZ 789",
+                        vehicleModel: "Toyota Corolla 2020",
+                        vehicleProblem: "Motor yağ değişimi",
+                        trackingNumber: "TK2025002",
+                        registerDate: "19.09.2025",
+                        status: "Tamamlandı",
+                        createdAt: new Date(Date.now() - 172800000).toISOString() // 2 gün önce
+                    },
+                    {
+                        id: Date.now() + 6,
+                        customerName: "Ali Yılmaz",
+                        customerPhone: "05557778899",
+                        customerEmail: "ali@email.com",
+                        vehiclePlate: "16 MNO 345",
+                        vehicleModel: "Hyundai i20 2021",
+                        vehicleProblem: "Fren sistemi bakımı",
+                        trackingNumber: "TK2025007",
+                        registerDate: "18.09.2025",
+                        status: "Beklemede",
+                        createdAt: new Date(Date.now() - 259200000).toISOString() // 3 gün önce
+                    }
+                ];
+                
+                displaySearchResults(demoRecords);
+                showNotification(`Sistemde toplam ${demoRecords.length} kayıt var (demo veriler)`, 'info');
+            } else {
+                // Kayıtları tarihe göre sırala (en yeni önce)
+                const sortedRecords = records.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                displaySearchResults(sortedRecords);
+                showNotification(`Sistemde toplam ${records.length} kayıt listelendi`, 'success');
+            }
+        }
+
+        // Durum değiştirme fonksiyonları
+        function showWaitingVehicles() {
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            const waiting = records.filter(r => r.status === 'Beklemede');
+            displaySearchResults(waiting);
+        }
+
+        function showRepairVehicles() {
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            const repair = records.filter(r => r.status === 'Onarımda');
+            displaySearchResults(repair);
+        }
+
+        function showCompletedVehicles() {
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            const completed = records.filter(r => r.status === 'Tamamlandı');
+            displaySearchResults(completed);
+        }
+
+        function changeRecordStatus(recordId) {
+            const newStatus = prompt('Yeni durumu seçin:\n1 - Beklemede\n2 - Onarımda\n3 - Tamamlandı');
+            
+            const statusMap = {
+                '1': 'Beklemede',
+                '2': 'Onarımda', 
+                '3': 'Tamamlandı'
+            };
+            
+            if (statusMap[newStatus]) {
+                updateRecordStatus(recordId, statusMap[newStatus]);
+                showNotification(`Durum ${statusMap[newStatus]} olarak güncellendi!`, 'success');
+                showAllRecords(); // Listeyi yenile
+            }
+        }
+
+        function updateRecordStatus(recordId, newStatus) {
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            const recordIndex = records.findIndex(r => r.id === recordId);
+            
+            if (recordIndex !== -1) {
+                records[recordIndex].status = newStatus;
+                records[recordIndex].lastUpdate = new Date().toISOString();
+                localStorage.setItem('vehicleRecords', JSON.stringify(records));
+            }
+        }
+
+        // Placeholder fonksiyonlar
+        function openQuickStatusUpdate() {
+            showNotification('Hızlı durum güncelleme - Geliştirme aşamasında', 'info');
+        }
+
+        function showDailyRecords() {
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            const today = new Date().toLocaleDateString('tr-TR');
+            const todayRecords = records.filter(r => r.registerDate === today);
+            
+            if (todayRecords.length === 0) {
+                // Eğer bugünkü kayıt yoksa demo veriler göster
+                const demoTodayRecords = [
+                    {
+                        id: Date.now() + 1,
+                        customerName: "Mehmet Öztürk",
+                        customerPhone: "05559876543",
+                        vehiclePlate: "06 DEF 456",
+                        vehicleModel: "Volkswagen Passat 2019",
+                        vehicleProblem: "Klima bakımı ve filter değişimi",
+                        trackingNumber: "TK2025003",
+                        registerDate: today,
+                        status: "Beklemede",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: Date.now() + 2,
+                        customerName: "Ayşe Kaya",
+                        customerPhone: "05551112233",
+                        vehiclePlate: "34 GHI 789",
+                        vehicleModel: "Renault Megane 2020",
+                        vehicleProblem: "Motor kontrolü ve genel bakım",
+                        trackingNumber: "TK2025004",
+                        registerDate: today,
+                        status: "Onarımda",
+                        createdAt: new Date().toISOString()
+                    },
+                    {
+                        id: Date.now() + 3,
+                        customerName: "Can Demir",
+                        customerPhone: "05554445566",
+                        vehiclePlate: "35 JKL 012",
+                        vehicleModel: "Ford Focus 2018",
+                        vehicleProblem: "Lastik değişimi ve balans ayarı",
+                        trackingNumber: "TK2025005",
+                        registerDate: today,
+                        status: "Tamamlandı",
+                        createdAt: new Date().toISOString()
+                    }
+                ];
+                displaySearchResults(demoTodayRecords);
+                showNotification(`Bugün ${demoTodayRecords.length} araç kaydı var (demo veriler)`, 'info');
+            } else {
+                displaySearchResults(todayRecords);
+                showNotification(`Bugün ${todayRecords.length} araç kaydedildi`, 'success');
+            }
+            
+            // Müşteri yönetimi bölümüne geç
+            showSection('musteriler');
+            
+            // Günlük kayıt sayısını güncelle
+            updateDailyRecordCount();
+        }
+
+        function updateStatusCounts() {
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            
+            // Demo veriler ekle eğer hiç kayıt yoksa
+            if (records.length === 0) {
+                const waitingCount = 2;
+                const repairCount = 3; 
+                const completedCount = 8;
+                
+                const waitingElement = document.getElementById('waiting-count');
+                const repairElement = document.getElementById('repair-count');
+                const completedElement = document.getElementById('completed-count');
+                
+                if (waitingElement) waitingElement.textContent = `${waitingCount} araç beklemede (demo)`;
+                if (repairElement) repairElement.textContent = `${repairCount} araç onarımda (demo)`;
+                if (completedElement) completedElement.textContent = `Bu hafta ${completedCount} araç tamamlandı (demo)`;
+            } else {
+                const waitingCount = records.filter(r => r.status === 'Beklemede').length;
+                const repairCount = records.filter(r => r.status === 'Onarımda').length;
+                
+                // Tamamlanan araçlar için son 7 gün
+                const weekAgo = new Date();
+                weekAgo.setDate(weekAgo.getDate() - 7);
+                const completedCount = records.filter(r => {
+                    if (r.status === 'Tamamlandı' && r.lastUpdate) {
+                        const updateDate = new Date(r.lastUpdate);
+                        return updateDate >= weekAgo;
+                    }
+                    return false;
+                }).length;
+                
+                const waitingElement = document.getElementById('waiting-count');
+                const repairElement = document.getElementById('repair-count');
+                const completedElement = document.getElementById('completed-count');
+                
+                if (waitingElement) waitingElement.textContent = `${waitingCount} araç beklemede`;
+                if (repairElement) repairElement.textContent = `${repairCount} araç onarımda`;
+                if (completedElement) completedElement.textContent = `Bu hafta ${completedCount} araç tamamlandı`;
+            }
+        }
+
+        function updateDailyRecordCount() {
+            const records = JSON.parse(localStorage.getItem('vehicleRecords') || '[]');
+            const today = new Date().toLocaleDateString('tr-TR');
+            const todayCount = records.filter(r => r.registerDate === today).length;
+            
+            const dailyRecordsElement = document.getElementById('daily-records');
+            if (dailyRecordsElement) {
+                if (todayCount === 0) {
+                    dailyRecordsElement.textContent = 'Bugün 3 yeni araç kaydedildi (demo)';
+                } else {
+                    dailyRecordsElement.textContent = `Bugün ${todayCount} yeni araç kaydedildi`;
+                }
+            }
+        }
+
+        function showUpdateForm() {
+            showNotification('Bilgi güncelleme formu - Geliştirme aşamasında', 'info');
+        }
+
+        function editRecord(recordId) {
+            showNotification('Kayıt düzenleme - Geliştirme aşamasında', 'info');
+        }
+    </script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/main.js"></script>
+</body>
+</html>
